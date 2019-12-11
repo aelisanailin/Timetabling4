@@ -57,7 +57,6 @@ public class Penjadwalan
         for (int i=0; i<degree.length; i++)
             for (int j=0; j<degree[0].length; j++)
                 degree[i][0] = i+1;
-        //long awal = System.nanoTime();
         try {
 
             File f = new File(file+".stu");
@@ -67,7 +66,6 @@ public class Penjadwalan
             String readLine = "";
 
             while ((readLine = b.readLine()) != null) {
-                //System.out.println(readLine);
                 String tmp [] = readLine.split(" ");
                 for(int i=0; i<tmp.length; i++)
                     for(int j=0; j<tmp.length; j++)
@@ -142,8 +140,6 @@ public class Penjadwalan
             }
 
             Jadwal aaa = new Jadwal(jadual, data, siswa, out, jj);
-            ///System.out.println(aaa.getTimeslot());
-            //aaa.repair();
 
             for(int i=0; i<sort.length; i++)
             {
@@ -160,21 +156,6 @@ public class Penjadwalan
                 }
             }
 
-            //System.out.println(countPenalty(timeslot, data, siswa));
-            //long selesai = System.nanoTime();
-
-		/*for(int i=0; i<timeslot.length; i++) //print timeslot
-			{
-				for(int j=0; j<timeslot[i].length; j++)
-				{
-					System.out.print(jadual[i][j] + " ");
-				}
-				System.out.println();
-		}*/
-
-            //TextFileWritingExample1(timeslot, out);
-
-            //System.out.println(countPenalty(timeslot, data, siswa));
             int tt = 0;
             for(int i=0; i<timeslot.length; i++)
             {
@@ -185,37 +166,15 @@ public class Penjadwalan
             }
             tt = tt+1;
 
-
-
-            //long akhir  = selesai-awal;
-            //System.out.println("Lama Running Time = "+(double)akhir/1000000000);
             long awal = System.nanoTime();
-            //Jadwal rand = new Jadwal(timeslot, data, siswa);
             Jadwal fix = new Jadwal(timeslot, data, siswa, out, jj);
-            //a.print();
-            //hillClimbing(timeslot, data, siswa, tt, out, exam);
-            //System.out.println(a.countPenalty());
-            //a.cek();
-            //HC(fix, rand);
-            //fix.Simulated();
-            //System.out.println(data.length);
-            //fix.repair();
-            //System.out.println(fix.contains());
-            //System.out.println(fix.getTimeslot());
-            //fix.TextFileWritingExample1();
-            //back(0, 0, data, jadual, jj);
 
-            //saturation
-            //aaa.LAHC();
-
-            //largest degree
             fix.HC();
 
             long selesai = System.nanoTime();
             long akhir  = selesai-awal;
-            //System.out.println(a.safeAll());
+
             System.out.println("Lama Running Time = "+(double)akhir/1000000000);
-            //System.out.print(tt);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -249,8 +208,6 @@ public class Penjadwalan
         else
         {
             System.out.println(limit);
-            //Jadwal x = new Jadwal(jadual, cm, 1000, "xx", limit);
-            //x.print();
         }
     }
 

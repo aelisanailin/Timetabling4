@@ -125,9 +125,7 @@ public class Jadwal {
         for(int i=0; i<a.length; i++)
             a[i] = ts[i][1];
         double T = 1;
-        //int llh = (int) (Math.random()*4);
 
-        //int tabu [] = new int [3];
         LinkedList<Integer> tabu = new LinkedList<Integer>();
         int llh;
         for(int i=0; i<1000000; i++)
@@ -153,7 +151,6 @@ public class Jadwal {
                 s = countPenalty();
                 if(s<=S)
                 {
-                    //System.out.println("Iterasi ke " + (i+1) + " aman dan penaltinya " + S);
                     S=s;
                     for (int j = 0; j <a.length; j++)
                         a[j] = ts[j][1];
@@ -192,11 +189,9 @@ public class Jadwal {
                     tabu.removeFirst();
                     tabu.add(llh);
                 }
-                //System.out.println("Iterasi ke " + (i+1) + " tidak aman dan penaltinya " + S);
                 for (int j = 0; j < ts.length; j++)
                     ts[j][1] = a[j];
             }
-            //System.out.println("Iterasi ke " + (i+1) +" penaltinya = " + S);
             T = T-(1.0/1000000.0);
         }
 
@@ -225,14 +220,6 @@ public class Jadwal {
             indeks[i][0] = (int) (Math.random()*cm.length);
             indeks[i][1] = (int) (Math.random()*jts);
         }
-        /*for(int i=0; i<indeks.length; i++)
-        {
-            for(int j=0; j<indeks[i].length; j++)
-            {
-                System.out.print(indeks[i][j] + " ");
-            }
-            System.out.println();
-        }*/
         for(int i=0; i<indeks.length; i++)
             ts[indeks[i][0]][1] = indeks[i][1];
     }
@@ -243,8 +230,6 @@ public class Jadwal {
         int indeks[] = new int [x];
         for (int i=0; i<indeks.length; i++)
             indeks[i] = (int) (Math.random()*cm.length);
-        //for(int i=0; i<indeks.length; i++)
-          //  System.out.println(indeks[i]);
         temp = ts[indeks[indeks.length-1]][1];
         for(int i=indeks.length-1; i>0; i--)
             ts[i][1] = ts[i-1][1];
@@ -253,7 +238,6 @@ public class Jadwal {
 
     public void LAHC()
     {
-        //double[][] plot = new double[1000000/10000][2];
         int p = 0;
         int a[] = new int[ts.length];
         double S = countPenalty();
@@ -326,96 +310,6 @@ public class Jadwal {
                 for (int j = 0; j < ts.length; j++)
                     ts[j][1] = a[j];
             }
-            //System.out.println("Iterasi ke " + (i+1) +" penaltinya = " + S);
-            if((i+1)%10000==0) {
-                plot[p][1] = s;
-                plot[p][0] = i+1;
-                p = p+1;
-                System.out.println("Iterasi ke " + (i + 1) + " Penaltinya = " + s);
-            }
-        }
-
-        System.out.println("Hasil LAHC Penalty = " + countPenalty());
-        System.out.println("Hasil LAHC S = " + S);
-        cetakPlot();
-    }
-
-    public void LAHCRF()
-    {
-        //double[][] plot = new double[1000000/10000][2];
-        int p = 0;
-        int a[] = new int[ts.length];
-        double S = countPenalty();
-        double s = S;
-        for(int i=0; i<a.length; i++)
-            a[i] = ts[i][1];
-        double fitness[] = new double[200];
-        for(int i=0; i<fitness.length;i++)
-            fitness[i] = S;
-        double idle = 0;
-        LinkedList<Integer> tabu = new LinkedList<Integer>();
-        int llh;
-        for(int i=0; i<1000000; i++)
-        {
-            do {
-                llh = (int) (Math.random()*5);
-            }while(tabu.contains(llh));
-            if(llh == 0)
-                move(1);
-            if(llh == 1)
-                swap(2);
-            if(llh == 2 )
-                move(2);
-            if(llh == 3 )
-                swap(3);
-            if(llh == 4 )
-                move(3);
-            if(safeAll())
-            {
-                s = countPenalty();
-                if(s>=S)
-                {
-                    idle = idle + 1;
-                    if(idle>1000000 *0.02)
-                        break;
-                }
-                else
-                    idle = 0;
-                int v = i%fitness.length;
-                if(s<=S || s<fitness[v])
-                {
-                    S=s;
-                    for (int j = 0; j <a.length; j++)
-                        a[j] = ts[j][1];
-                }
-                else
-                {
-                    if(tabu.size()==2)
-                    {
-                        tabu.removeFirst();
-                        tabu.add(llh);
-                    }
-                    else tabu.add(llh);
-                    for (int j = 0; j < ts.length; j++)
-                        ts[j][1] = a[j];
-                }
-                if(S<fitness[v])
-                {
-                    fitness[v] = S;
-                }
-            }
-            else
-            {
-                if(tabu.size()==2)
-                {
-                    tabu.removeFirst();
-                    tabu.add(llh);
-                }
-                else tabu.add(llh);
-                for (int j = 0; j < ts.length; j++)
-                    ts[j][1] = a[j];
-            }
-            //System.out.println("Iterasi ke " + (i+1) +" penaltinya = " + S);
             if((i+1)%10000==0) {
                 plot[p][1] = s;
                 plot[p][0] = i+1;
@@ -462,7 +356,6 @@ public class Jadwal {
                 s = countPenalty();
                 if(s<=S)
                 {
-                   //System.out.println("Iterasi ke " + (i+1) + " aman dan penaltinya " + S);
                     S=s;
                     for (int j = 0; j <a.length; j++)
                     a[j] = ts[j][1];
@@ -475,8 +368,7 @@ public class Jadwal {
                         tabu.add(llh);
                     }
                     else tabu.add(llh);
-                    //System.out.println("Iterasi ke " + (i+1) + " aman dan penaltinya " + S);
-                    for (int j = 0; j < ts.length; j++)
+                      for (int j = 0; j < ts.length; j++)
                         ts[j][1] = a[j];
                 }
             }
@@ -488,7 +380,6 @@ public class Jadwal {
                     tabu.add(llh);
                 }
                 else tabu.add(llh);
-                //System.out.println("Iterasi ke " + (i+1) + " tidak aman dan penaltinya " + S);
                 for (int j = 0; j < ts.length; j++)
                     ts[j][1] = a[j];
             }
@@ -498,14 +389,12 @@ public class Jadwal {
                 p = p+1;
                 System.out.println("Iterasi ke " + (i + 1) + " Penaltinya = " + s);
             }
-            //System.out.println("Iterasi ke " + (i+1) +" penaltinya = " + S);
 
         }
         for(int i=0; i<ts.length; i++) {
             ts[i][1] = a[i];
         }
 
-        //print();
         System.out.println(tabu);
         System.out.println("Hasil HC " + countPenalty());
         cetakPlot();
